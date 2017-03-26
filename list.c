@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "list.h"
 #include "generic_printf.h"
@@ -10,11 +11,11 @@
  * @param next Pointer to the next node
  * @return Pointer to the created new node
  */
-static node_t *node_new(val_t val, node_t *next)
+static node_t *node_new(const val_t val, node_t *next)
 {
     /* allocate node */
     node_t *node = malloc(sizeof(node_t));
-    node->data = val;
+    memcpy(node->data, val, 16);
     node->next = next;
     return node;
 }
@@ -76,7 +77,7 @@ node_t *list_get(llist_t * const list, const uint32_t index)
  */
 void list_print(const llist_t * const list)
 {
-    const node_t *cur = list->head;
+    node_t *cur = list->head;
     while (cur) {
         xprintln(cur->data);
         cur = cur->next;

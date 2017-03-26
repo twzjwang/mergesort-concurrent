@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 
 #include "merge_sort.h"
 
@@ -11,9 +12,7 @@ llist_t *sort_n_merge(llist_t *a, llist_t *b)
     node_t *current = NULL;
     while (a->size && b->size) {
         /* Choose the linked list whose data of first node is small. */
-        llist_t *small = (llist_t *)
-                         ((intptr_t) a * (a->head->data <= b->head->data) +
-                          (intptr_t) b * (a->head->data > b->head->data));
+        llist_t *small = (strcmp(a->head->data, b->head->data) <= 0) ? a : b;
         /* Extract first node of selected list and put to the new list. */
         if (current) {
             current->next = small->head;

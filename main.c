@@ -101,10 +101,15 @@ static void *task_run(void *data __attribute__ ((__unused__)))
 static uint32_t build_list_from_file(llist_t *_list, const char *filename)
 {
     FILE *fp = fopen(filename, "r");
+    if(!fp) {
+        printf("file open error!\n");
+        fclose(fp);
+        return -1;
+    }
     char buffer[16];
 
     while (fgets(buffer, 16, fp) != NULL) {
-        list_add(_list, atol(buffer));
+        list_add(_list, buffer);
     }
 
     fclose(fp);
