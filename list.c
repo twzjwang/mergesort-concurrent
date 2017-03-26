@@ -75,13 +75,17 @@ node_t *list_get(llist_t * const list, const uint32_t index)
  * @brief Display the data of all nodes in the linked list
  * @param list The target linked list
  */
-void list_print(const llist_t * const list)
+void list_print(const llist_t * const list,  const char *filename)
 {
-    node_t *cur = list->head;
-    while (cur) {
-        xprintln(cur->data);
-        cur = cur->next;
+    FILE *fp = fopen(filename, "w");
+    if(fp) {
+        node_t *cur = list->head;
+        while (cur) {
+            fprintf(fp, "%s", cur->data);
+            cur = cur->next;
+        }
     }
+    fclose(fp);
 }
 
 /**

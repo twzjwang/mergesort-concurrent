@@ -118,7 +118,7 @@ static uint32_t build_list_from_file(llist_t *_list, const char *filename)
 
 int main(int argc, char const *argv[])
 {
-    if (argc < 3) {
+    if (argc < 4) {
         printf(USAGE);
         return -1;
     }
@@ -158,7 +158,7 @@ int main(int argc, char const *argv[])
     printf("#Throughput: %d (per sec)\n", (uint32_t)(consumed_tasks * 1000 / duration));
 
     /* Output sorted result */
-    list_print(the_list);
+    list_print(the_list, argv[3]);
 
     return 0;
 }
